@@ -1,13 +1,42 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"></div>
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        <h1 class="text-center">Math Quiz</h1>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        <component :is="mode" @answered="answered($event)" @confirmed="mode = 'Question'"></component>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import Question from "./components/Question.vue";
+import Answer from "./components/Answer.vue";
+export default {
+  data() {
+    return {
+      mode: "Question"
+    };
+  },
+  methods: {
+    answered(isCorrect) {
+      if (isCorrect) this.mode = "Answer";
+      else {
+        this.mode = "Question";
+        alert("Wrong, try again!");
+      }
+    }
+  },
+  components: {
+    Question,
+    Answer
+  }
+};
 </script>
 
 <style>
